@@ -2,7 +2,12 @@ import POJO.CreateAddress_POJO;
 import POJO.Location;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -16,6 +21,9 @@ public class AddPlace {
 
     @Test
     public void createAddPlace(){
+        RequestSpecification request = new RequestSpecBuilder().setBaseUri("https://rahulshettyacademy.com/")
+                .addQueryParam("key","qaclick123")
+                .setContentType(ContentType.JSON).build();
         CreateAddress_POJO createAddressPojo = new CreateAddress_POJO();
         Location l = new Location();
         l.setLat(-38.383494);
@@ -33,26 +41,17 @@ public class AddPlace {
         a.add("coding");
         createAddressPojo.setTypes(a);
         createAddressPojo.setLocation(l);
-        RestAssured.baseURI="https://rahulshettyacademy.com/";
+        ResponseSpecification responseSpecification=  new ResponseSpecBuilder().expectStatusCode(200).build();
+        Response response = given()
+                .spec(request)
+                .body(createAddressPojo).log().all()
+                .when()
+                .post("/maps/api/place/add/json")
+                .then()
+                .statusCode(200).log().all()
+                .extract()
+                .response();
 
-//        Response response = given()
-//                .queryParam("key","qaclick123")
-//                .body(createAddressPojo).log().all()
-//                .when()
-//                .post("/maps/api/place/add/json")
-//                .then()
-//                .statusCode(200).log().all()
-//                .extract()
-//                .response();
-//
-//        System.out.println(response.asString());
-
-        Response res=given().log().all().queryParam("key", "qaclick123")
-                .body(createAddressPojo)
-                .when().post("/maps/api/place/add/json").
-                then().assertThat().statusCode(200).extract().response();
-
-        String responseString=res.asString();
-        System.out.println(responseString);
+        System.out.println(response.asString());
     }
 }
