@@ -1,15 +1,22 @@
 package POJO;
 
 public class Location {
+    public double getLat() {
+        return lat;
+    }
 
-    private long lat;
-    private long lng;
+    public double getLng() {
+        return lng;
+    }
 
-    public void setLat(long lat) {
+    private double lat;
+    private double lng;
+
+    public void setLat(double lat) {
         this.lat = lat;
     }
 
-    public void setLng(long lng) {
+    public void setLng(double lng) {
         this.lng = lng;
     }
 }

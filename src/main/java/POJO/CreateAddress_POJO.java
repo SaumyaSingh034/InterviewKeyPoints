@@ -5,7 +5,7 @@ import java.util.List;
 public class CreateAddress_POJO {
 
     private Location location;
-    private String accuracy;
+    private int accuracy;
     private String name;
     private String phone_number;
     private String address;
@@ -15,7 +15,39 @@ public class CreateAddress_POJO {
         this.location = location;
     }
 
-    public void setAccuracy(String accuracy) {
+    public Location getLocation() {
+        return location;
+    }
+
+    public int getAccuracy() {
+        return accuracy;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public List<String> getTypes() {
+        return types;
+    }
+
+    public void setAccuracy(int accuracy) {
         this.accuracy = accuracy;
     }
 
