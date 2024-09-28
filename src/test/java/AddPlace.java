@@ -41,14 +41,15 @@ public class AddPlace {
         a.add("coding");
         createAddressPojo.setTypes(a);
         createAddressPojo.setLocation(l);
-        ResponseSpecification responseSpecification=  new ResponseSpecBuilder().expectStatusCode(200).build();
+        ResponseSpecification responseSpecification=  new ResponseSpecBuilder().expectStatusCode(200)
+                .expectContentType(ContentType.JSON).build();
         Response response = given()
                 .spec(request)
                 .body(createAddressPojo).log().all()
                 .when()
                 .post("/maps/api/place/add/json")
                 .then()
-                .statusCode(200).log().all()
+                .spec(responseSpecification).log().all()
                 .extract()
                 .response();
 
