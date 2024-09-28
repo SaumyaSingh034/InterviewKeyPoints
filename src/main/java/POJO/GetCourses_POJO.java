@@ -8,6 +8,9 @@ public class GetCourses_POJO {
     private String services;
     private String expertise;
 
+    private String linkedIn;
+    private Courses courses;
+
     public String getInstructor() {
         return instructor;
     }
@@ -48,15 +51,13 @@ public class GetCourses_POJO {
         this.linkedIn = linkedIn;
     }
 
-    public List<Courses> getCourses() {
+    public Courses getCourses() {
         return courses;
     }
 
-    public void setCourses(List<Courses> courses) {
+    public void setCourses(Courses courses) {
         this.courses = courses;
     }
 
-    private String linkedIn;
-    private List<Courses> courses;
 
 }
