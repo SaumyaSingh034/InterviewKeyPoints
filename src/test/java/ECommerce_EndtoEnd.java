@@ -2,6 +2,7 @@ import POJO.LoginCredentialsPOJO;
 import POJO.LoginResponseCredentials;
 import POJO.OrderDetails;
 import POJO.OrderPOJO;
+import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -45,6 +46,7 @@ public class ECommerce_EndtoEnd {
 
     @Test(priority = 1)
     public void createProduct(){
+
         RequestSpecification requestSpec = new RequestSpecBuilder().setBaseUri("https://rahulshettyacademy.com")
                 .addHeader("Authorization", token)
                .build();
