@@ -1,5 +1,7 @@
 import POJO.LoginCredentialsPOJO;
 import POJO.LoginResponseCredentials;
+import POJO.OrderDetails;
+import POJO.OrderPOJO;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -7,6 +9,8 @@ import io.restassured.specification.RequestSpecification;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import static io.restassured.RestAssured.given;
 
@@ -65,6 +69,24 @@ public class ECommerce_EndtoEnd {
     }
     @Test(priority = 2)
     public void placeOrder(){
+        OrderPOJO order = new OrderPOJO();
+        OrderDetails details = new OrderDetails();
+        details.setCountry("India");
+        details.setProductOrderedId(productId);
+        List<OrderDetails> arr = new ArrayList<>();
+        arr.add(details);
+        order.setOrders(arr);
+
+        RequestSpecification spec = new RequestSpecBuilder().setBaseUri("https://rahulshettyacademy.com")
+                .addHeader("Authorization",token)
+                .setContentType(ContentType.JSON).build();
+
+        Response response = given().spec(spec).body(order)
+                .when()
+                .post("/api/ecom/order/create-order")
+                .then().log().all()
+                .statusCode(201).extract().response();
+
 
     }
 }
