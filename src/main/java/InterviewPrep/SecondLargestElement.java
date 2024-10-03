@@ -16,5 +16,16 @@ public class SecondLargestElement {
             }
         }
         System.out.println(largest+" ----------------- "+secondLargest);
+
+        int sc = 0;
+        int l = 0;
+        int[] arr1 = {2,3,1,6,9,9};
+        for(int i=0;i<arr1.length;i++){
+            if(arr1[i] > l){
+                sc = l;
+                l = arr1[i];
+            }
+        }
+        System.out.println(sc+"   "+l);
     }
 }
