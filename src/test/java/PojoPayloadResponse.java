@@ -1,7 +1,16 @@
 import CreatePoJoComplex.GetCourses;
+import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.config.LogConfig;
+import io.restassured.config.RestAssuredConfig;
+import io.restassured.config.SSLConfig;
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.testng.annotations.Test;
 
+import static io.restassured.RestAssured.config;
 import static io.restassured.RestAssured.given;
 
 public class PojoPayloadResponse {
@@ -24,7 +33,7 @@ public class PojoPayloadResponse {
 
     @Test(dependsOnMethods = "getAccessToken")
     public void validatePojoResponse(){
-        GetCourses gc=	given()
+        GetCourses gc=	given().filter(new RequestLoggingFilter()).filter(new ResponseLoggingFilter())
                 .queryParams("access_token", accessToken)
                 .when().log().all()
                 .get("https://rahulshettyacademy.com/oauthapi/getCourseDetails").as(GetCourses.class);
@@ -32,5 +41,19 @@ public class PojoPayloadResponse {
         //System.out.println(gc.getLinkedIn());
         System.out.println(gc.getInstructor());
         System.out.println(gc.getCourses().getApi().get(0).getCourseTitle());
+        long time = System.currentTimeMillis();
+        System.out.println(time);
     }
+
+    @Test
+    public void sslConfig(){
+        given().config(RestAssured.config().sslConfig(new SSLConfig().allowAllHostnames()))
+                .when().post("");
+       given().config(config().logConfig(LogConfig.logConfig().blacklistHeader("api")));
+       given().header("multiplevalue", "val2","val1","val3")
+               .when().post();
+
+    }
+
+
 }
