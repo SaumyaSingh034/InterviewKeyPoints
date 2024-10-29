@@ -11,12 +11,16 @@ import static io.restassured.RestAssured.given;
 public class jsonSchemaValidator {
 
     @Test
-    public void jsonSchema(){
+    public void jsonSchema(String value){
     given().when().post().then().
             body(JsonSchemaValidator.matchesJsonSchemaInClasspath("user-schema.json"));
 
     Response response = given().when().get();
-    File file = new File("pathoffile");
+    response.then().assertThat().body(JsonSchemaValidator.matchesJsonSchema(new
+            File("src/resources/json/"+value+".json")));
+
+
+
 
     }
 }
