@@ -22,6 +22,7 @@ public class AddPlace {
     @Test
     public void createAddPlace(){
         RequestSpecification request = new RequestSpecBuilder().setBaseUri("https://rahulshettyacademy.com/")
+
                 .addQueryParam("key","qaclick123")
                 .setContentType(ContentType.JSON).build();
         CreateAddress_POJO createAddressPojo = new CreateAddress_POJO();
@@ -54,5 +55,13 @@ public class AddPlace {
                 .response();
 
         System.out.println(response.asString());
+
+    }
+
+    @Test
+    public void authenticatoion(){
+        given().auth().basic("username","password")
+                .get();
+        given().auth().oauth2("accessTokem").post();
     }
 }
