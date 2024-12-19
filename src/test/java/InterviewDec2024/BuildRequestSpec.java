@@ -2,6 +2,7 @@ package InterviewDec2024;
 
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -28,7 +29,9 @@ public class BuildRequestSpec {
 
     @Test
     public void buildRequest(){
-        given().spec(spec).when().get();
+        Response response = given().spec(spec).when().get();
+        response.jsonPath().get("data.book.size()");
+        response.path("userName[0].name");
         given().spec(specRest).when().get();
     }
 }
