@@ -65,4 +65,8 @@ public class Payload {
                 "  }\n" +
                 "}";
     }
+
+    public static String payPayInterview(){
+        return "[{\"userId\":1,\"Id\":1,\"title\":\"saumya\",\"age\":\"hello\"}]";
+    }
 }
