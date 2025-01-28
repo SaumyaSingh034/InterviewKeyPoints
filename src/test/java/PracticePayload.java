@@ -1,9 +1,16 @@
 import complexPayload.Payload;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
+import io.restassured.specification.RequestSpecification;
 
 public class PracticePayload {
 
     public static void main(String[] args){
+
+        RequestSpecification spec = new RequestSpecBuilder().setBaseUri("").setAuth("")
+                .setContentType(ContentType.JSON)
+                .setBody("").build();
         JsonPath js = new JsonPath(Payload.complexJsonAnuj());
         int size = js.get("store.book.size()");
         String author = null;
